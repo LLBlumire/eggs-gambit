@@ -140,7 +140,7 @@ Vue.createApp({
             return this.expectedAnyChicken.decimal() * this.payout
         },
         expectedPayout() {
-            return this.payoutEveryChicken ? this.expectedPayoutFromAnyChicken : this.expectedPayoutFromChickens;
+            return this.payoutEveryChicken ? this.expectedPayoutFromChickens : this.expectedPayoutFromAnyChicken;
         },
         expectedPayoutDisplay() {
             return this.expectedPayout.toFixed(2)
