@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eggs Gambit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
+    <script defer src="index.js"></script>
+</head>
+
+<body>
+    <header class="container">
+        <div class="text-center py-5">
+            <img class="d-block mb-4 mx-auto" src="egg.png" width="75" height="75">
+            <h1>
+                Eggs Gambit
+            </h1>
+            <div class="lead">
+                A minecraft egg based casino profitability calculator.
+            </div>
+        </div>
+    </header>
+    <main class="container py-5">
+        <blockquote class="blockquote">
+            The gambler will pay
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" v-on:click="pay = Math.max(pay - 1, 1)">&minus;</button>
+                <button type="button" class="btn btn-outline-primary" disabled>{{pay}}</button>
+                <button type="button" class="btn btn-primary" v-on:click="pay++">&plus;</button>
+            </div>
+            {{payDiamondOrDiamonds}} for
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" v-on:click="egg = Math.max(egg - 1, 1)">&minus;</button>
+                <button type="button" class="btn btn-outline-primary" disabled>{{egg}}</button>
+                <button type="button" class="btn btn-primary" v-on:click="egg++">&plus;</button>
+            </div>
+            {{eggOrEggs}}.
+        </blockquote>
+        <blockquote class="blockquote">
+            {{payoutTerms}}:
+            they will receive
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary"
+                    v-on:click="payout = Math.max(payout - 1, 1)">&minus;</button>
+                <button type="button" class="btn btn-outline-primary" disabled>{{payout}}</button>
+                <button type="button" class="btn btn-primary" v-on:click="payout++">&plus;</button>
+            </div>
+            {{payoutDiamondOrDiamonds}} back.
+            <button type="button" class="btn btn-primary"
+                v-on:click="payoutEveryChicken = !payoutEveryChicken">{{changeTerms}}</button>
+        </blockquote>
+        <blockquote class="blockquote" v-if="payoutEveryChicken">
+            The gambler will hatch on average {{expectedChickensDec}} chickens.
+        </blockquote>
+        <blockquote class="blockquote" v-else>
+            The gambler has a {{expectedAnyChickenPct}} chance to hatch any chicken.
+        </blockquote>
+        <blockquote class="blockquote">
+            Thus they have an expected profit of {{expectedPayoutDisplay}} diamonds.
+        </blockquote>
+        <blockquote class="blockquote text-white p-3 text-center" v-bind:class="payoutStyle">
+            The casino will {{makeOrLose}} {{expectedProfitDisplay}} diamonds per play!
+        </blockquote>
+    </main>
+</body>
+
+</html>
