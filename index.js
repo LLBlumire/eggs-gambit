@@ -83,8 +83,15 @@ Vue.createApp({
         payout: 1,
         payoutEveryChicken: false,
     }),
-    methods: {
-
+    mounted() {
+        let searchParams = new URLSearchParams(window.location.search);
+        for (const [key, value] of searchParams) {
+            if (key == 'pay') this.pay = parseInt(value);
+            if (key == 'egg') this.egg = parseInt(value);
+            if (key == 'payout') this.payout = parseInt(value);
+            if (key == 'type' && value == 'any') this.payoutEveryChicken = false;
+            if (key == 'type' && value == 'each') this.payoutEveryChicken = true;
+        }
     },
     computed: {
         payDiamondOrDiamonds() {
@@ -159,6 +166,15 @@ Vue.createApp({
         },
         payoutStyle() {
             return { 'bg-success': this.willProfit, 'bg-danger': !this.willProfit }
+        },
+        pageQuery() {
+            let protocol = window.location.protocol;
+            let hostname = window.location.hostname;
+            let pathname = window.location.pathname;
+            let baseurl = `${protocol}//${hostname}${pathname}`;
+            let type = this.payoutEveryChicken ? "each" : "any";
+            let query = `?pay=${this.pay}&egg=${this.egg}&payout=${this.payout}&type=${type}`;
+            return `${baseurl}${query}`;
         }
     }
 }).mount('body')
