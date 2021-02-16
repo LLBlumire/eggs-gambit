@@ -74,6 +74,7 @@ class Fraction {
 }
 
 const CHICKEN_PAYOUT_RATE = new Fraction(35, 256);
+const ANY_CHICKEN_CHANCE = new Fraction(1, 8);
 
 Vue.createApp({
     data: () => ({
@@ -127,7 +128,7 @@ Vue.createApp({
             return this.expectedChickens.decimal() * this.payout
         },
         expectedAnyChicken() {
-            return CHICKEN_PAYOUT_RATE.add_inv().add_num(1).pow_num(this.egg).add_inv().add_num(1)
+            return ANY_CHICKEN_CHANCE.add_inv().add_num(1).pow_num(this.egg).add_inv().add_num(1)
         },
         expectedAnyChickenFrac() {
             return this.expectedAnyChicken.display_mixed()
